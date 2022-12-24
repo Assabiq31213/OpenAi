@@ -11,6 +11,7 @@
     "@adiwajshing/baileys": "4.4.0",
     "@adiwajshing/keyed-db": "^0.2.4",
     "awesome-phonenumber": "^2.64.0",
+    "axios": "^0.24.0",
     "chalk": "^4.1.2",
     "cfonts": " ^1.0.0",
     "crypto": "^1.0.1",
@@ -20,6 +21,7 @@
     "openai": "^3.1.0",
     "pino": "^7.0.5",
     "qrcode-terminal": "^0.12.0",
+    "simsimi": "^3.0.0",
     "util": "^0.12.4"
   }
 }
