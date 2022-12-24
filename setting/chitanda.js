@@ -3,7 +3,10 @@ const fs = require('fs')
 const util = require('util')
 const chalk = require('chalk')
 const { Configuration, OpenAIApi } = require("openai")
+const simsimi = require('simsimi')
+const { fetchJson } = require('./axios.js')
 let setting = require('./config.json')
+simi = true
 
 module.exports = Zakk = async (sock, msg, chatUpdate, store) => {
     try {
@@ -36,6 +39,9 @@ module.exports = Zakk = async (sock, msg, chatUpdate, store) => {
 
         // Push Message To Console
         let argsLog = (budy.length > 30) ? `${q.substring(0, 30)}...` : budy
+
+console.log(chalk.black(chalk.bgGreen('[ CMD ]')), color(argsLog, 'turquoise'), chalk.magenta(`[ ${msg.sender.replace('@s.whatsapp.net', '')} ]`), chalk.blueBright('| Group :'), chalk.yellow(groupName))
+console.log(chalk.black(chalk.bgGreen('[ CMD ]')), color(argsLog, 'turquoise'), chalk.blue(`[ ${msg.sender.replace('@s.whatsapp.net', '@s.whatsapp.net')} ]`))
 
         if (setting.autoAI) {
             // Push Message To Console && Auto Read
@@ -79,6 +85,35 @@ module.exports = Zakk = async (sock, msg, chatUpdate, store) => {
             }
         }
     }
+    
+    if (simi) {
+    if (budy) {
+       try {
+     sock.readMessages([msg.key])
+     const mes = await fetchJson(`https://saipulanuar.ga/api/f/simi?text=${command}`)
+       reply(mes.result)
+       } catch (err) {
+      console.log(err)
+      reply('terjadi kesalahan')
+        }
+       }
+      }
+
+if (budy.startsWith('=>')) {
+    function Return(sul) {
+sat = JSON.stringify(sul, null, 2)
+bang = util.format(sat)
+if (sat == undefined) {
+bang = util.format(sul)
+}
+return reply(bang)
+    }
+    try {
+reply(util.format(eval(`(async () => { return ${budy.slice(3)} })()`)))
+    } catch (e) {
+reply(String(e))
+    }
+}
 
     if (!setting.autoAI) {
         if (isCmd2) {
@@ -128,7 +163,6 @@ module.exports = Zakk = async (sock, msg, chatUpdate, store) => {
         msg.reply(util.format(err))
     }
 }
-
 
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {
